@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marigold Hair Co. — Neighbourhood salon</title>
+<meta name="description" content="A warm, friendly hair salon on the high street. Cuts, colour, balayage and blow-dries by people who actually listen.">
+
+<!--
+  ============================================================
+  SALON TEMPLATE — quick-reskin guide (for you, Bobby)
+  ============================================================
+  To turn this into a client's site, change only these 6 things:
+
+  1. NAME + TAGLINE ....... search "Marigold Hair Co." and the hero copy below
+  2. COLOURS .............. edit the :root variables in <style> (one place)
+  3. SERVICES + PRICES .... the .services list
+  4. PHOTOS ............... the illustrations live in /assets as .svg files and
+                            are wired up in the .frame-hero / .g1–.g6 CSS rules.
+                            To use real photos, drop a .jpg into /assets and change
+                            that one url(...) line. A photo of the client's actual
+                            shopfront in the hero is what makes a cold email convert.
+  5. BOOKING LINK ......... search "REPLACE-BOOKING-LINK" — point every
+                            "Book" button at their Fresha / Booksy / Treatwell
+                            page, or a tel: / WhatsApp link.
+  6. VISIT DETAILS ........ address, hours, phone, and the Google Map iframe
+                            (instructions are in the "Visit" section below).
+
+  Leave the "Website by …" credit in the footer — every demo you send becomes
+  a free advert linking back to your portfolio.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- PALETTE + TYPE (edit here to reskin) ---------- */
+  :root{
+    --oat:       #F7F1E7;  /* base background            */
+    --cream-deep:#EFE4D3;  /* alternate section background */
+    --ink:       #322A22;  /* body + heading text        */
+    --honey:     #E0A03D;  /* primary accent (buttons)   */
+    --honey-dk:  #C8862A;  /* button hover               */
+    --plum:      #6E4550;  /* elegant secondary accent   */
+    --sage:      #8A9A7B;  /* botanical / soft details   */
+    --line:      #E2D4C1;  /* hairlines & borders        */
+
+    --display: 'Fraunces', Georgia, serif;
+    --body: 'Nunito Sans', system-ui, sans-serif;
+
+    --maxw: 1140px;
+    --pad: clamp(1.25rem, 5vw, 4rem);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--oat);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:1.02rem;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:var(--display); font-weight:500; line-height:1.08; margin:0; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--pad); }
+  .eyebrow{
+    font-family:var(--body); font-weight:700; letter-spacing:.18em;
+    text-transform:uppercase; font-size:.72rem; color:var(--plum);
+    display:inline-flex; align-items:center; gap:.6rem; margin:0 0 1rem;
+  }
+  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--sage); display:inline-block; }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-block; font-family:var(--body); font-weight:700;
+    font-size:.95rem; letter-spacing:.01em; text-decoration:none;
+    padding:.85rem 1.6rem; border-radius:999px; cursor:pointer;
+    transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary{ background:var(--honey); color:#fff; box-shadow:0 6px 18px rgba(224,160,61,.28); }
+  .btn-primary:hover{ background:var(--honey-dk); transform:translateY(-2px); }
+  .btn-ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--oat); transform:translateY(-2px); }
+
+  :focus-visible{ outline:3px solid var(--plum); outline-offset:3px; border-radius:4px; }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(247,241,231,.88); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding-block:1rem; }
+  .brand{ font-family:var(--display); font-weight:600; font-size:1.35rem; text-decoration:none; letter-spacing:.01em; }
+  .brand span{ color:var(--honey); }
+  .nav-links{ display:flex; align-items:center; gap:2rem; }
+  .nav-links a{ text-decoration:none; font-weight:600; font-size:.95rem; }
+  .nav-links a:not(.btn):hover{ color:var(--plum); }
+  .nav-links .btn{ padding:.6rem 1.3rem; }
+  .menu-btn{ display:none; background:none; border:0; font-size:1.5rem; cursor:pointer; color:var(--ink); }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding-block:clamp(3rem,7vw,6rem) clamp(2rem,5vw,4rem); }
+  .hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(2rem,5vw,4.5rem); align-items:center; }
+  .hero h1{ font-size:clamp(2.6rem,6vw,4.4rem); letter-spacing:-.01em; }
+  .hero h1 em{ font-style:italic; color:var(--plum); }
+  .hero p{ font-size:1.18rem; max-width:34ch; margin:1.5rem 0 2.2rem; color:#5b4f42; }
+  .hero-cta{ display:flex; gap:1rem; flex-wrap:wrap; }
+
+  /* Arched photo frame — the signature element. Swap the gradient for a real photo. */
+  .frame{
+    position:relative; border:1.5px solid var(--honey);
+    border-radius:50% 50% 8px 8px / 32% 32% 8px 8px;
+    overflow:hidden; background-size:cover; background-position:center;
+    box-shadow:0 20px 50px -24px rgba(50,42,34,.5);
+  }
+  .hero .frame{ aspect-ratio:4/5; }
+  /* PHOTO: your hero photo. Name it hero.jpg and put it in /assets */
+  .frame-hero{ background-image:url('assets/hero.jpg'); }
+  .frame-label{
+    position:absolute; inset:auto 0 0 0; padding:1.4rem 1.2rem .9rem;
+    background:linear-gradient(transparent,rgba(50,42,34,.55));
+    color:#fff; font-family:var(--display); font-style:italic; font-size:1.05rem;
+  }
+
+  .scallop{ height:26px; margin-top:2.5rem;
+    background:radial-gradient(circle at 13px -6px, transparent 13px, var(--cream-deep) 14px) repeat-x;
+    background-size:26px 26px; }
+
+  /* ---------- SECTIONS ---------- */
+  .section{ padding-block:clamp(3.5rem,7vw,6rem); }
+  .section-alt{ background:var(--cream-deep); }
+  .section-head{ max-width:52ch; margin-bottom:3rem; }
+  .section-head h2{ font-size:clamp(2rem,4.5vw,3rem); }
+  .section-head.center{ margin-inline:auto; text-align:center; }
+
+  /* ---------- SERVICES ---------- */
+  .services{ display:grid; gap:0; }
+  .svc{
+    display:flex; align-items:baseline; gap:1rem;
+    padding:1.4rem 0; border-bottom:1px solid var(--line);
+  }
+  .svc:first-child{ border-top:1px solid var(--line); }
+  .svc-name{ font-family:var(--display); font-size:1.35rem; font-weight:500; }
+  .svc-desc{ color:#6a5e50; font-size:.95rem; flex:1 1 auto; }
+  .svc-dots{ flex:1 1 auto; border-bottom:1.5px dotted var(--line); transform:translateY(-.35rem); min-width:1.5rem; }
+  .svc-price{ font-family:var(--display); font-weight:600; font-size:1.2rem; color:var(--plum); white-space:nowrap; }
+  .svc-note{ text-align:center; margin-top:2rem; color:#6a5e50; font-size:.92rem; }
+
+  /* ---------- GALLERY ---------- */
+  .gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+  .gallery .frame{ aspect-ratio:3/4; border-radius:50% 50% 6px 6px / 22% 22% 6px 6px; }
+  /* PHOTO: your gallery photos. Name them gallery-1.jpg … gallery-6.jpg in /assets */
+  .g1{ background-image:url('assets/gallery-1.jpg'); }
+  .g2{ background-image:url('assets/gallery-2.jpg'); }
+  .g3{ background-image:url('assets/gallery-3.jpg'); }
+  .g4{ background-image:url('assets/gallery-4.jpg'); }
+  .g5{ background-image:url('assets/gallery-5.jpg'); }
+  .g6{ background-image:url('assets/gallery-6.jpg'); }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .quotes{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; }
+  .quote{ background:var(--oat); border:1px solid var(--line); border-radius:18px; padding:2rem 1.8rem; }
+  .section-alt .quote{ background:#fff; }
+  .quote .mark{ font-family:var(--display); font-size:3rem; line-height:.4; color:var(--honey); display:block; height:1.4rem; }
+  .quote p{ font-family:var(--display); font-style:italic; font-size:1.12rem; margin:.4rem 0 1.4rem; }
+  .quote cite{ font-style:normal; font-weight:700; font-size:.9rem; color:var(--plum); }
+
+  /* ---------- VISIT ---------- */
+  .visit-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+  .visit dl{ margin:0; }
+  .visit dt{ font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:.75rem; color:var(--plum); margin-top:1.4rem; }
+  .visit dd{ margin:.25rem 0 0; font-size:1.08rem; }
+  .visit .btn{ margin-top:2rem; }
+  /* MAP: replace this whole block with a Google Maps embed —
+     search your client on maps.google.com → Share → Embed a map → copy the
+     <iframe>, paste it here, and add style="border:0;width:100%;height:100%". */
+  .map-ph{
+    position:relative; aspect-ratio:4/3; border-radius:18px;
+    border:1px solid var(--line); overflow:hidden; display:block;
+  }
+  .map-ph img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .map-ph .pill{
+    position:absolute; left:1rem; bottom:1rem; background:rgba(247,241,231,.94);
+    border:1px solid var(--line); border-radius:999px; padding:.5rem 1rem;
+    font-weight:700; font-size:.85rem; color:var(--plum);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--ink); color:#e9ddcd; padding-block:3.5rem 2rem; }
+  .foot-grid{ display:flex; justify-content:space-between; align-items:flex-start; gap:2rem; flex-wrap:wrap; }
+  .foot-brand{ font-family:var(--display); font-size:1.5rem; color:#fff; }
+  .foot-brand span{ color:var(--honey); }
+  footer a{ color:#e9ddcd; text-decoration:none; }
+  footer a:hover{ color:var(--honey); }
+  .foot-social{ display:flex; gap:1.4rem; font-weight:600; }
+  .foot-base{ border-top:1px solid rgba(255,255,255,.14); margin-top:2.5rem; padding-top:1.4rem;
+    display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.85rem; color:#b9ad9c; }
+
+  /* ---------- MOTION ---------- */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .hero-grid,.visit-grid{ grid-template-columns:1fr; }
+    .hero .frame{ max-width:420px; margin-inline:auto; }
+    .gallery{ grid-template-columns:repeat(2,1fr); }
+    .quotes{ grid-template-columns:1fr; }
+    .nav-links{ position:fixed; inset:64px 0 auto 0; flex-direction:column; gap:1.2rem;
+      background:var(--oat); border-bottom:1px solid var(--line); padding:1.6rem var(--pad);
+      transform:translateY(-120%); transition:transform .3s ease; }
+    .nav-links.open{ transform:translateY(0); }
+    .menu-btn{ display:block; }
+  }
+  @media (max-width:520px){
+    .gallery{ grid-template-columns:1fr; }
+    .svc{ flex-wrap:wrap; }
+    .svc-dots{ display:none; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{ scroll-behavior:auto !important; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .btn:hover{ transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap">
+    <a class="brand" href="#top">Marigold<span>.</span> Hair Co.</a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <div class="nav-links" id="nav">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit</a>
+      <!-- REPLACE-BOOKING-LINK: point href at the salon's Fresha/Booksy page -->
+      <a class="btn btn-primary" href="#visit">Book now</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">High-street salon · est. 2016</span>
+        <h1>Good hair, <em>good company,</em> good day.</h1>
+        <p>A little neighbourhood salon where you're never rushed, never judged, and you actually leave with the cut you asked for.</p>
+        <div class="hero-cta">
+          <!-- REPLACE-BOOKING-LINK -->
+          <a class="btn btn-primary" href="#visit">Book your chair</a>
+          <a class="btn btn-ghost" href="#services">See the menu</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="frame frame-hero">
+          <span class="frame-label">Your happy place on the high street</span>
+        </div>
+      </div>
+    </div>
+    <div class="scallop" aria-hidden="true"></div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section class="section section-alt" id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">The menu</span>
+        <h2>Honest prices, no surprises</h2>
+      </div>
+      <div class="services reveal">
+        <div class="svc">
+          <span class="svc-name">Cut &amp; finish</span>
+          <span class="svc-desc">Wash, cut and a proper blow-dry.</span>
+          <span class="svc-dots"></span><span class="svc-price">from £38</span>
+        </div>
+        <div class="svc">
+          <span class="svc-name">Restyle &amp; consultation</span>
+          <span class="svc-desc">A fresh start, talked through first.</span>
+          <span class="svc-dots"></span><span class="svc-price">from £52</span>
+        </div>
+        <div class="svc">
+          <span class="svc-name">Full-head colour</span>
+          <span class="svc-desc">Roots to ends, glossy and even.</span>
+          <span class="svc-dots"></span><span class="svc-price">from £68</span>
+        </div>
+        <div class="svc">
+          <span class="svc-name">Balayage &amp; toner</span>
+          <span class="svc-desc">Soft, sun-kissed, grows out beautifully.</span>
+          <span class="svc-dots"></span><span class="svc-price">from £95</span>
+        </div>
+        <div class="svc">
+          <span class="svc-name">Highlights</span>
+          <span class="svc-desc">Half or full head, foil or babylights.</span>
+          <span class="svc-dots"></span><span class="svc-price">from £78</span>
+        </div>
+        <div class="svc">
+          <span class="svc-name">Blow-dry &amp; style</span>
+          <span class="svc-desc">In and out, feeling brand new.</span>
+          <span class="svc-dots"></span><span class="svc-price">from £28</span>
+        </div>
+      </div>
+      <p class="svc-note">Prices vary with hair length and thickness — we'll always confirm before we start. Under-12s and students, just ask.</p>
+    </div>
+  </section>
+
+  <!-- ===================== GALLERY ===================== -->
+  <section class="section" id="gallery">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Our work</span>
+        <h2>Fresh from the chair</h2>
+      </div>
+      <div class="gallery reveal">
+        <!-- PHOTO: add background-image to each .frame below -->
+        <div class="frame g1"><span class="frame-label">Balayage</span></div>
+        <div class="frame g2"><span class="frame-label">Sharp bob</span></div>
+        <div class="frame g3"><span class="frame-label">Warm copper</span></div>
+        <div class="frame g4"><span class="frame-label">Soft layers</span></div>
+        <div class="frame g5"><span class="frame-label">Occasion hair</span></div>
+        <div class="frame g6"><span class="frame-label">Babylights</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== REVIEWS ===================== -->
+  <section class="section section-alt" id="reviews">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Kind words</span>
+        <h2>What the neighbours say</h2>
+      </div>
+      <div class="quotes reveal">
+        <blockquote class="quote">
+          <span class="mark">&ldquo;</span>
+          <p>First salon in years where I've actually left with the cut I asked for. They properly listen.</p>
+          <cite>Priya K.</cite>
+        </blockquote>
+        <blockquote class="quote">
+          <span class="mark">&ldquo;</span>
+          <p>They fit my little one in around the school run and never make me feel rushed. Proper lovely.</p>
+          <cite>Danielle M.</cite>
+        </blockquote>
+        <blockquote class="quote">
+          <span class="mark">&ldquo;</span>
+          <p>Went in nervous about going lighter, came out obsessed — and it's grown out so well too.</p>
+          <cite>Chloe R.</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VISIT ===================== -->
+  <section class="section" id="visit">
+    <div class="wrap">
+      <div class="visit-grid">
+        <div class="visit reveal">
+          <span class="eyebrow">Come say hello</span>
+          <h2 style="font-size:clamp(2rem,4.5vw,3rem);margin-bottom:.5rem;">Find us on the high street</h2>
+          <dl>
+            <dt>Where</dt>
+            <dd>42 Market Street, Bo'ness, EH51 0AA</dd>
+            <dt>Opening hours</dt>
+            <dd>Tue–Fri 9–6 · Sat 9–4 · Sun &amp; Mon closed</dd>
+            <dt>Call or text</dt>
+            <dd><a href="tel:+441234567890" style="color:var(--plum);font-weight:700;">01234 567 890</a></dd>
+          </dl>
+          <!-- REPLACE-BOOKING-LINK -->
+          <a class="btn btn-primary" href="#top">Book your chair</a>
+        </div>
+        <div class="reveal">
+          <!-- MAP: for the live client site, replace this whole block with their
+               Google Maps embed (maps.google.com → Share → Embed a map → copy the
+               <iframe>). This illustrated map is the demo placeholder. -->
+          <div class="map-ph">
+            <img src="assets/map.svg" alt="Map showing the salon on the high street">
+            <span class="pill">42 Market Street</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Marigold<span>.</span> Hair Co.</div>
+        <p style="max-width:32ch;color:#c7bbaa;margin:.6rem 0 0;">The little salon that everyone leaves a bit happier.</p>
+      </div>
+      <div class="foot-social">
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="mailto:hello@example.com">Email</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Marigold Hair Co. All rights reserved.</span>
+      <!-- Keep this credit — it links every demo back to your portfolio -->
+      <span>Website by <a href="#" style="color:var(--honey);">Bobby White</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const btn = document.querySelector('.menu-btn');
+  const nav = document.getElementById('nav');
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  nav.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => { nav.classList.remove('open'); btn.setAttribute('aria-expanded', false); })
+  );
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

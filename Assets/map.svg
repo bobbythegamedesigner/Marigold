@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Stylised street map showing the salon location on the high street">
+  <rect width="800" height="600" fill="#EFE6D6"/>
+
+  <!-- park -->
+  <rect x="40" y="360" width="230" height="200" rx="20" fill="#8A9A7B" opacity="0.35"/>
+  <circle cx="95" cy="415" r="16" fill="#8A9A7B" opacity="0.6"/>
+  <circle cx="150" cy="400" r="20" fill="#8A9A7B" opacity="0.55"/>
+  <circle cx="210" cy="430" r="18" fill="#8A9A7B" opacity="0.6"/>
+
+  <!-- building blocks -->
+  <rect x="330" y="60" width="150" height="120" rx="12" fill="#E2D4C1"/>
+  <rect x="510" y="60" width="120" height="120" rx="12" fill="#D9C7AE"/>
+  <rect x="660" y="60" width="100" height="200" rx="12" fill="#E2D4C1"/>
+  <rect x="330" y="360" width="150" height="90" rx="12" fill="#D9C7AE"/>
+  <rect x="520" y="360" width="240" height="200" rx="12" fill="#E2D4C1"/>
+  <rect x="40" y="60" width="230" height="120" rx="12" fill="#D9C7AE"/>
+
+  <!-- roads -->
+  <rect x="285" y="0" width="42" height="600" fill="#F7F1E7"/>
+  <rect x="486" y="0" width="30" height="600" fill="#F7F1E7"/>
+  <rect x="0" y="196" width="800" height="42" fill="#F7F1E7"/>
+  <rect x="0" y="308" width="800" height="30" fill="#F7F1E7"/>
+  <!-- centre lines -->
+  <line x1="306" y1="0" x2="306" y2="600" stroke="#E0A03D" stroke-width="3" stroke-dasharray="14 16" opacity="0.5"/>
+  <line x1="0" y1="217" x2="800" y2="217" stroke="#E0A03D" stroke-width="3" stroke-dasharray="14 16" opacity="0.5"/>
+
+  <!-- location pin (on the high street) -->
+  <ellipse cx="400" cy="300" rx="26" ry="9" fill="#322A22" opacity="0.25"/>
+  <path d="M400 168 C356 168 322 202 322 246 C322 302 400 372 400 372 C400 372 478 302 478 246 C478 202 444 168 400 168 Z" fill="#E0A03D"/>
+  <circle cx="400" cy="246" r="30" fill="#F7F1E7"/>
+  <circle cx="400" cy="246" r="14" fill="#6E4550"/>
+</svg>
